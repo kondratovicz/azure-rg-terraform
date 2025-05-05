@@ -22,3 +22,8 @@ resource "azurerm_resource_group" "main" {
   name     = "rg-devops-basic"
   location = "West Europe"
 }
+
+variable "client_id" {}
+variable "client_secret" {}
+variable "tenant_id" {}
+variable "subscription_id" {}
