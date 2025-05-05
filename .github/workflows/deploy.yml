@@ -24,15 +24,15 @@ jobs:
       
     - name: TF validate
       id: validate
-      run: terraform validate
+      run: cd terraform && terraform validate
       
     - name: TF plan
       id: plan
-      run: terraform plan
+      run: cd terraform && terraform plan
 
     - name: TF apply
       id: apply
-      run: terraform plan -auto-approve
+      run: cd terraform && terraform plan -auto-approve
       
 
     - run: echo ${{ steps.plan.outputs.stdout }}
