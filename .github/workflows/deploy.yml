@@ -1,23 +1,39 @@
 name: Deploy Azure rg
-on: [push]
+on:
+  push:
+    branches: [ "main" ]
 jobs:
   tf:
     runs-on: ubuntu-latest
+    env:
+        TF_VAR_client_id: ${{ secrets.ARM_CLIENT_ID }}
+        TF_VAR_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}
+        TF_VAR_tenant_id: ${{ secrets.ARM_TENANT_ID }}
+        TF_VAR_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+        
     steps:
-    - uses: hashicorp/setup-terraform@v3
-    
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Setup TF
+      uses: hashicorp/setup-terraform@v3
+
     - name: TF init
       id: init
       run: terraform init
       
     - name: TF validate
       id: validate
-      run: terraform validate -no-color
+      run: terraform validate
       
     - name: TF plan
       id: plan
-      run: terraform plan -no-color
+      run: terraform plan
 
+    - name: TF apply
+      id: apply
+      run: terraform plan -auto-approve
+      
 
     - run: echo ${{ steps.plan.outputs.stdout }}
     - run: echo ${{ steps.plan.outputs.stderr }}
