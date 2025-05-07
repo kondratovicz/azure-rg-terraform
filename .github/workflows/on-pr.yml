@@ -21,7 +21,10 @@ jobs:
 
     - name: Setup TF
       uses: hashicorp/setup-terraform@v3
-
+    
+    - name: TF select workspace
+      run: terraform workspace select main
+      
     - name: TF init
       id: init
       run: cd terraform && terraform init
