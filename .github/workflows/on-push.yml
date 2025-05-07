@@ -20,7 +20,7 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
       - run: cd terraform && terraform init
       - run: cd terraform && terraform validate
-      - run: cd terraform && terraform plan
+      - run: cd terraform && terraform plan -input=false
       - run: cd terraform && terraform apply -auto-approve
 
   terraform-test:
@@ -38,5 +38,5 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
       - run: cd terraform && terraform init
       - run: cd terraform && terraform validate
-      - run: cd terraform && terraform plan
+      - run: cd terraform && terraform plan -input=false
       - run: cd terraform && terraform apply -auto-approve
