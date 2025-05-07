@@ -2,6 +2,8 @@ on:
   pull_request:
     types:
       - opened
+permissions:
+  pull-requests: write
 jobs:
   tf:
     runs-on: ubuntu-latest
