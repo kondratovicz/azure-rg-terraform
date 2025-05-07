@@ -11,7 +11,7 @@ terraform {
     resource_group_name  = "resource_group_devops"
     storage_account_name = "othernamesalreadytaken"
     container_name       = "tfstate"
-    key                  = "${var.resource_group_name}-terraform.tfstate"
+    key                  = "${GITHUB_WORKSPACE}-terraform.tfstate"
   }
 }
 
