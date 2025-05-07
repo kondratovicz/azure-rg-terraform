@@ -40,5 +40,5 @@ jobs:
       - run: cd terraform && terraform init 
       #-backend-config="key=testterraform.tfstate"
       - run: cd terraform && terraform validate
-      - run: cd terraform && terraform plan
-      - run: cd terraform && terraform apply -auto-approve
+      #- run: cd terraform && terraform plan
+      #- run: cd terraform && terraform apply -auto-approve
