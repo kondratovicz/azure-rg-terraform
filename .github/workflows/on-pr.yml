@@ -24,7 +24,7 @@ jobs:
     
     - name: TF init
       id: init
-      run: cd terraform && terraform init -backend-config="key=main.terraform.tfstate"
+      run: cd terraform && terraform init
       
     - name: TF validate
       id: validate

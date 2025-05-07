@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
-      - run: cd terraform && terraform init -backend-config="key=main.terraform.tfstate" -lock='false'
+      - run: cd terraform && terraform init
       - run: cd terraform && terraform validate
       - run: cd terraform && terraform plan
       - run: cd terraform && terraform apply -auto-approve
@@ -36,7 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
-      - run: cd terraform && terraform init -backend-config="key=test.terraform.tfstate" -lock='false'
+      - run: cd terraform && terraform init
       - run: cd terraform && terraform validate
       - run: cd terraform && terraform plan
       - run: cd terraform && terraform apply -auto-approve

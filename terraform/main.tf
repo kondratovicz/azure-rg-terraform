@@ -7,12 +7,6 @@ terraform {
   }
 
   required_version = "1.11.4"
-  backend "azurerm" {
-    resource_group_name   = "resource_group_devops"
-    storage_account_name  = "othernamesalreadytaken"
-    container_name        = "tfstate"
-    key                   = "terraform.tfstate"
-  }
 }
 
 resource "tls_private_key" "ssh_key" {
