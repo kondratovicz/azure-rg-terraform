@@ -12,8 +12,6 @@ terraform {
     storage_account_name  = "othernamesalreadytaken"
     container_name        = "tfstate"
     key                   = "terraform.tfstate"
-    lock_duration         = "60m"
-    lock_renewal_interval = "5m"
   }
 }
 
