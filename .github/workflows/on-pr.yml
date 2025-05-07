@@ -33,6 +33,6 @@ jobs:
     - name: Plan output as a comment
       uses: peter-evans/create-or-update-comment@v4
       with:
-        issue-number: ${{ github.event.pull_request.number }}
+        issue-number: ${{ github.event.pull_request.number || github.event.inputs.issue_number }}
         body-file: plan.txt
       
