@@ -65,7 +65,7 @@ resource "azurerm_linux_virtual_machine" "example" {
   ]
 
    admin_ssh_key {
-    username   = "azureuser"
+    username   = "adminuser"
     public_key = tls_private_key.ssh_key.public_key_openssh
   }
 
