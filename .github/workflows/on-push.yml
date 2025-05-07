@@ -14,15 +14,15 @@ jobs:
             rg_name: rg-devops-main
           - branch: test
             rg_name: rg-devops-test
-
-    if: github.ref_name == matrix.branch
     
     env:
       TF_VAR_client_id: ${{ secrets.ARM_CLIENT_ID }}
       TF_VAR_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}
       TF_VAR_tenant_id: ${{ secrets.ARM_TENANT_ID }}
       TF_VAR_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-
+      
+    if: github.ref_name == matrix.branch
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
