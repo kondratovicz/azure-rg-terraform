@@ -1,10 +1,19 @@
 on:
+  workflow_dispatch:
   pull_request:
     types:
       - opened
+env:
+        TF_VAR_client_id: ${{ secrets.ARM_CLIENT_ID }}
+        TF_VAR_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}
+        TF_VAR_tenant_id: ${{ secrets.ARM_TENANT_ID }}
+        TF_VAR_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+        TF_VAR_resource_group_name: rg-devops-main
+permissions:
+  contents: write
+  pull-requests: write
 jobs:
-  run_if:
-    if: github.head_ref == 'refs/heads/main'
+  tf:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
@@ -23,12 +32,11 @@ jobs:
       
     - name: TF plan
       id: plan
-      run: |
-          terraform -chdir=terraform plan -no-color > plan.txt
+      run: cd terraform && terraform plan -no-color > ../plan.txt
 
     - name: Plan output as a comment
       uses: peter-evans/create-or-update-comment@v4
       with:
-        issue-number: ${{ github.event.pull_request.number }}
+        issue-number: ${{ github.event.pull_request.number || github.event.inputs.issue_number }}
         body-file: plan.txt
       
