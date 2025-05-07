@@ -3,8 +3,7 @@ on:
     types:
       - opened
 jobs:
-  run_if:
-    if: github.head_ref == 'refs/heads/main'
+  tf:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
