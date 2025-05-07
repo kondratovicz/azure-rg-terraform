@@ -3,8 +3,11 @@ on:
   pull_request:
     types:
       - opened
-permissions:
-  pull-requests: write
+env:
+        TF_VAR_client_id: ${{ secrets.ARM_CLIENT_ID }}
+        TF_VAR_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}
+        TF_VAR_tenant_id: ${{ secrets.ARM_TENANT_ID }}
+        TF_VAR_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 jobs:
   tf:
     runs-on: ubuntu-latest
@@ -25,7 +28,7 @@ jobs:
       
     - name: TF plan
       id: plan
-      run: cd terraform && terraform plan -input=false > plan.txt
+      run: cd terraform && terraform plan > plan.txt
 
     - name: Plan output as a comment
       uses: peter-evans/create-or-update-comment@v4
