@@ -14,16 +14,20 @@ jobs:
             rg_name: rg-devops-main
           - branch: test
             rg_name: rg-devops-test
-    
+
     env:
       TF_VAR_client_id: ${{ secrets.ARM_CLIENT_ID }}
       TF_VAR_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}
       TF_VAR_tenant_id: ${{ secrets.ARM_TENANT_ID }}
       TF_VAR_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      
-    if: github.ref_name == matrix.branch
-    
+
     steps:
+      - name: Skip if matrix branch doesn't match current branch
+        if: github.ref_name != matrix.branch
+        run: |
+          echo "This job is for '${{ matrix.branch }}' but the push was to '${{ github.ref_name }}'. Skipping."
+          exit 0
+
       - name: Checkout
         uses: actions/checkout@v4
 
