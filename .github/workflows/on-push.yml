@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
-      - run: terraform workspace select main
+      - run: terraform workspace select main -or-create
       - run: cd terraform && terraform init
       - run: cd terraform && terraform validate
       - run: cd terraform && terraform plan
@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
-      - run: terraform workspace select test
+      - run: terraform workspace select test -or-create
       - run: cd terraform && terraform init
       - run: cd terraform && terraform validate
       - run: cd terraform && terraform plan
