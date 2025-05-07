@@ -7,6 +7,12 @@ terraform {
   }
 
   required_version = ">= 1.5.0"
+  backend "azurerm" {
+    resource_group_name  = "resource_group_devops"
+    storage_account_name = "othernamesalreadytaken"
+    container_name       = "tfstate"
+    key                  = "${var.resource_group_name}-terraform.tfstate"
+  }
 }
 
 resource "tls_private_key" "ssh_key" {
@@ -51,6 +57,31 @@ resource "azurerm_network_interface" "example" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.example.id
     private_ip_address_allocation = "Dynamic"
+  }
+}
+
+resource "azurerm_public_ip" "example" {
+  name                = "acceptanceTestPublicIp1"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
+  allocation_method   = "Static"
+}
+
+resource "azurerm_network_security_group" "example" {
+  name                = "example-nsg"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+
+  security_rule {
+    name                       = "SSH"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
   }
 }
 
