@@ -1,0 +1,34 @@
+on:
+  pull_request:
+    types:
+      - opened
+jobs:
+  run_if:
+    if: github.head_ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Setup TF
+      uses: hashicorp/setup-terraform@v3
+
+    - name: TF init
+      id: init
+      run: cd terraform && terraform init
+      
+    - name: TF validate
+      id: validate
+      run: cd terraform && terraform validate
+      
+    - name: TF plan
+      id: plan
+      run: |
+          terraform -chdir=terraform plan -no-color > plan.txt
+
+    - name: Plan output as a comment
+      uses: peter-evans/create-or-update-comment@v4
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body-file: plan.txt
+      
