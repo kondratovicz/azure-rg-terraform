@@ -22,12 +22,9 @@ jobs:
     - name: Setup TF
       uses: hashicorp/setup-terraform@v3
     
-    - name: TF select workspace
-      run: terraform workspace select main || terraform workspace new main
-
     - name: TF init
       id: init
-      run: cd terraform && terraform init
+      run: cd terraform && terraform init -backend-config="key=main-terraform.tfstate"
       
     - name: TF validate
       id: validate

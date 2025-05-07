@@ -18,8 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
-      - run: terraform workspace select main || terraform workspace new main
-      - run: cd terraform && terraform init
+      - run: cd terraform && terraform init -backend-config="key=main-terraform.tfstate"
       - run: cd terraform && terraform validate
       - run: cd terraform && terraform plan
       - run: cd terraform && terraform apply -auto-approve
@@ -37,8 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
-      - run: terraform workspace select test || terraform workspace new test
-      - run: cd terraform && terraform init
+      - run: cd terraform && terraform init -backend-config="key=test-terraform.tfstate"
       - run: cd terraform && terraform validate
       - run: cd terraform && terraform plan
       - run: cd terraform && terraform apply -auto-approve
