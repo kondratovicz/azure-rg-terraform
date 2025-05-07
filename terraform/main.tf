@@ -8,10 +8,12 @@ terraform {
 
   required_version = "1.11.4"
   backend "azurerm" {
-    resource_group_name  = "resource_group_devops"
-    storage_account_name = "othernamesalreadytaken"
-    container_name       = "tfstate"
-    key                  = "terraform.tfstate"
+    resource_group_name   = "resource_group_devops"
+    storage_account_name  = "othernamesalreadytaken"
+    container_name        = "tfstate"
+    key                   = "terraform.tfstate"
+    lock_duration         = "60m"
+    lock_renewal_interval = "5m"
   }
 }
 
