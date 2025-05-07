@@ -9,6 +9,11 @@ terraform {
   required_version = ">= 1.5.0"
 }
 
+resource "tls_private_key" "ssh_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
 provider "azurerm" {
   features {}
 
@@ -59,9 +64,9 @@ resource "azurerm_linux_virtual_machine" "example" {
     azurerm_network_interface.example.id,
   ]
 
-  admin_ssh_key {
-    username   = "adminuser"
-    public_key = file("~/.ssh/id_rsa.pub")
+   admin_ssh_key {
+    username   = "azureuser"
+    public_key = tls_private_key.ssh_key.public_key_openssh
   }
 
   os_disk {
