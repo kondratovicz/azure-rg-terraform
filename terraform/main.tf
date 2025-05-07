@@ -2,11 +2,11 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.0"
+      version = "4.23.0"
     }
   }
 
-  required_version = ">= 1.5.0"
+  required_version = "1.11.4"
   backend "azurerm" {
     resource_group_name  = "resource_group_devops"
     storage_account_name = "othernamesalreadytaken"
